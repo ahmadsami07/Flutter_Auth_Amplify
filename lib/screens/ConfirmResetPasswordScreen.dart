@@ -74,6 +74,12 @@ class _ConfirmResetState extends State<ConfirmReset> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Padding(padding: EdgeInsets.only(bottom: 15)),
+              Text(
+                "Please Enter your New Password, and the Confirmation Code you recieved on your email.",
+                textAlign: TextAlign.center,
+                style: new TextStyle(color: Colors.red, fontSize: 14.0),
+              ),
               Card(
                 elevation: 12,
                 shape: RoundedRectangleBorder(
@@ -114,32 +120,6 @@ class _ConfirmResetState extends State<ConfirmReset> {
                       const Padding(
                         padding: EdgeInsets.only(top: 10),
                       ),
-                      TextField(
-                        controller: _confirmPasswordController,
-                        obscureText: _obscureText,
-                        decoration: InputDecoration(
-                          filled: true,
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 4.0),
-                          prefixIcon: Icon(Icons.lock),
-                          labelText: 'Retype new password',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
-                          ),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
-                            child: Icon(
-                              _obscureText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                            ),
-                          ),
-                        ),
-                      ),
                       const Padding(
                         padding: EdgeInsets.only(top: 10),
                       ),
@@ -173,7 +153,7 @@ class _ConfirmResetState extends State<ConfirmReset> {
                         child: Text(
                           'RESET PASSWORD',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.red,
                             fontSize: 14,
                           ),
                         ),

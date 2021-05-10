@@ -34,7 +34,7 @@ class _VerifConfirmState extends State<VerifConfirm> {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 4.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(50)),
                     ),
