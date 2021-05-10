@@ -14,23 +14,27 @@ class ConfirmResetScreen extends StatefulWidget {
 
 class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
   String newemail, newpass, code;
-  final _controller = TextEditingController();
+  final _emailController = TextEditingController();
   final _newPasswordController = TextEditingController();
+  final _confirmController = TextEditingController();
   bool _isEnabled1 = false;
   bool _isEnabled2 = false;
+  bool _isEnabled3 = false;
   bool _obscureText = true;
 
   @override
   void initState() {
     super.initState();
-    _controller.addListener(() {
+    _emailController.addListener(() {
       setState(() {
-        _isEnabled1 = _controller.text.isNotEmpty;
+        _isEnabled1 = _emailController.text.isNotEmpty;
       });
     });
     _newPasswordController.addListener(() {
       setState(() {
-        _isEnabled2 = _controller.text.isNotEmpty;
+        _isEnabled2 = _newPasswordController.text.isNotEmpty &&
+            _emailController.text.isNotEmpty &&
+            _newPasswordController.text.isNotEmpty;
       });
     });
   }
@@ -74,8 +78,9 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _emailController.dispose();
     _newPasswordController.dispose();
+    _confirmController.dispose();
     super.dispose();
   }
 
@@ -100,11 +105,12 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                     children: [
                       SizedBox(height: 10),
                       TextField(
+                          controller: _emailController,
                           decoration: InputDecoration(
                             filled: true,
                             contentPadding:
                                 const EdgeInsets.symmetric(vertical: 4.0),
-                            prefixIcon: Icon(Icons.lock),
+                            prefixIcon: Icon(Icons.email),
                             labelText: 'Enter Email',
                             border: OutlineInputBorder(
                               borderRadius:
@@ -150,7 +156,7 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                           }),
                       SizedBox(height: 10),
                       TextField(
-                          controller: _controller,
+                          controller: _confirmController,
                           decoration: InputDecoration(
                             filled: true,
                             contentPadding:
@@ -169,28 +175,6 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                           }),
                       SizedBox(height: 5),
                       MaterialButton(
-                        onPressed: _isEnabled2
-                            ? () {
-                                _resetPassword(
-                                    context, newemail, code, newpass);
-                              }
-                            : null,
-                        elevation: 4,
-                        color: Theme.of(context).primaryColor,
-                        disabledColor: Colors.deepPurple.shade200,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        child: Text(
-                          'RESET',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      MaterialButton(
                         onPressed: _isEnabled1
                             ? () {
                                 Amplify.Auth.resetPassword(username: newemail);
@@ -204,6 +188,28 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                         ),
                         child: Text(
                           'SEND VERIFICATION CODE',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      MaterialButton(
+                        onPressed: _isEnabled2
+                            ? () {
+                                _resetPassword(
+                                    context, newemail, code, newpass);
+                              }
+                            : null,
+                        elevation: 4,
+                        color: Theme.of(context).primaryColor,
+                        disabledColor: Colors.deepPurple.shade200,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Text(
+                          'RESET PASSWORD',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,

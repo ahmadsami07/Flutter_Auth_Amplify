@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loginapp2/Widget/appbar.dart';
+import 'package:loginapp2/screens/SampleScreen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'loginscreen.dart';
 import 'models/User.dart';
@@ -78,6 +80,7 @@ class _landingpageState extends State<landingpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: myAppBar(context),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -111,41 +114,47 @@ class _landingpageState extends State<landingpage> {
                   child: Text("Add Photo.")),
             const Padding(padding: EdgeInsets.only(top: 10)),
             const Padding(padding: EdgeInsets.only(top: 10)),
-            MaterialButton(
+            TextButton(
               onPressed: () {
-                WebView(
-                  initialUrl: "https://saloneverywhere.com/sample-profiles",
-                  javascriptMode: JavascriptMode.unrestricted,
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) {
+                    return SampleScreen();
+                  }),
                 );
               },
-              elevation: 4,
-              color: Theme.of(context).primaryColor,
-              disabledColor: Colors.red.shade200,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: Text(
-                'Please Take a Look At Our Sample Profiles',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-            Container(
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.verified_user),
+                  const Padding(padding: EdgeInsets.only(left: 5)),
+                  Text(
+                    'Sample Profiles',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
                     ),
                   ),
-                ),
-                onPressed: () {
-                  _signout();
-                },
-                child: Center(
-                  child: Text('Sign Out'),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Container(
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    _signout();
+                  },
+                  child: Center(
+                    child: Text('Sign Out'),
+                  ),
                 ),
               ),
             ),
