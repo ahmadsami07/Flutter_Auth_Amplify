@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loginapp2/Services/authentication.dart';
-import 'package:loginapp2/models/User.dart';
+import './Services/authentication.dart';
+import './models/User.dart';
 
 class login_confirm extends StatefulWidget {
   final User currentUser;

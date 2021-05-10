@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loginapp2/Widget/appbar.dart';
-import 'package:loginapp2/screens/SampleScreen.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import './Widget/appbar.dart';
+import './screens/SampleScreen.dart';
 import 'loginscreen.dart';
 import 'models/User.dart';
-import 'signup_screen.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:loginapp2/login_confirm.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:io';
 
-class landingpage extends StatefulWidget {
+class LandingPage extends StatefulWidget {
   final String email;
-  landingpage({this.email});
+  LandingPage({this.email});
   @override
-  _landingpageState createState() => _landingpageState();
+  _LandingPageState createState() => _LandingPageState();
 }
 
-class _landingpageState extends State<landingpage> {
+class _LandingPageState extends State<LandingPage> {
   User _myUser;
   bool _profilePicUploaded = false;
   final mImagePicker = new ImagePicker();

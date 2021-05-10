@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:loginapp2/Services/authentication.dart';
-import 'package:loginapp2/landing_page.dart';
-import 'package:loginapp2/passwordrecovery.dart';
-
+import './Services/authentication.dart';
+import './passwordrecovery.dart';
 import 'signup_screen.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

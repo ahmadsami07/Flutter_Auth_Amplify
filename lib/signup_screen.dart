@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loginapp2/Services/authentication.dart';
+import './Services/authentication.dart';
 
 class signupscreen extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:flutter_login/flutter_login.dart';
+import './screens/ResetPassword.dart';
 
 class ConfirmResetScreen extends StatefulWidget {
   //final LoginData data;
@@ -37,6 +37,18 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
             _newPasswordController.text.isNotEmpty;
       });
     });
+  }
+
+  void _sendPasswordCode(String email) async {
+    try {
+      final result = await Amplify.Auth.resetPassword(username: newemail);
+      if (result.nextStep.updateStep == 'CONFIRM_RESET_PASSWORD_WITH_CODE') {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ConfirmReset(email)));
+      }
+    } catch (e) {
+      print(e.message);
+    }
   }
 
   void _resetPassword(BuildContext context, String newemail, String code,
@@ -87,7 +99,7 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.white,
       body: Center(
         child: SafeArea(
           minimum: const EdgeInsets.symmetric(horizontal: 20),
@@ -122,62 +134,11 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                               newemail = val;
                             });
                           }),
-                      SizedBox(height: 10),
-                      TextField(
-                          controller: _newPasswordController,
-                          obscureText: _obscureText,
-                          decoration: InputDecoration(
-                            filled: true,
-                            contentPadding:
-                                const EdgeInsets.symmetric(vertical: 4.0),
-                            prefixIcon: Icon(Icons.lock),
-                            labelText: 'Enter new password',
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40)),
-                            ),
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _obscureText = !_obscureText;
-                                });
-                              },
-                              child: Icon(
-                                _obscureText
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                              ),
-                            ),
-                          ),
-                          onChanged: (val) {
-                            setState(() {
-                              newpass = val;
-                            });
-                          }),
-                      SizedBox(height: 10),
-                      TextField(
-                          controller: _confirmController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            contentPadding:
-                                const EdgeInsets.symmetric(vertical: 4.0),
-                            prefixIcon: Icon(Icons.lock),
-                            labelText: 'Enter confirmation code',
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40)),
-                            ),
-                          ),
-                          onChanged: (val) {
-                            setState(() {
-                              code = val;
-                            });
-                          }),
-                      SizedBox(height: 5),
                       MaterialButton(
                         onPressed: _isEnabled1
                             ? () {
                                 Amplify.Auth.resetPassword(username: newemail);
+                                _sendPasswordCode(newemail);
                               }
                             : null,
                         elevation: 4,
@@ -195,27 +156,6 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      MaterialButton(
-                        onPressed: _isEnabled2
-                            ? () {
-                                _resetPassword(
-                                    context, newemail, code, newpass);
-                              }
-                            : null,
-                        elevation: 4,
-                        color: Theme.of(context).primaryColor,
-                        disabledColor: Colors.deepPurple.shade200,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        child: Text(
-                          'RESET PASSWORD',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
