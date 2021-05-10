@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loginapp2/Services/authentication.dart';
+import 'package:loginapp2/models/User.dart';
 
 class login_confirm extends StatefulWidget {
-  final email;
-  login_confirm({this.email});
+  final User currentUser;
+  login_confirm({this.currentUser});
   @override
   _login_confirmState createState() => _login_confirmState();
 }
@@ -34,7 +35,7 @@ class _login_confirmState extends State<login_confirm> {
               SizedBox(height: 10.00),
               ElevatedButton(
                   onPressed: () {
-                    auth().confirmation(widget.email, verifcode, context);
+                    auth().confirmation(widget.currentUser, verifcode, context);
                   },
                   child: Text("CONFIRM")),
             ]))

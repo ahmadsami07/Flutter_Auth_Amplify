@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loginapp2/Services/authentication.dart';
 import 'package:loginapp2/landing_page.dart';
 import 'package:loginapp2/passwordrecovery.dart';
-import 'Services/providers.dart';
+
 import 'signup_screen.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -15,6 +15,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email, password;
   var userloggedin;
+  @override
+  void initState() {
+    super.initState();
+    Amplify.Auth.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     if (auth().signin(email, password) != null) {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => landingpage()));
+                          builder: (context) => landingpage(email: email)));
                     }
                   },
                   child: Center(child: Text('Login'))),

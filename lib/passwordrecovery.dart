@@ -16,7 +16,8 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
   String newemail, newpass, code;
   final _controller = TextEditingController();
   final _newPasswordController = TextEditingController();
-  bool _isEnabled = false;
+  bool _isEnabled1 = false;
+  bool _isEnabled2 = false;
   bool _obscureText = true;
 
   @override
@@ -24,12 +25,12 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
     super.initState();
     _controller.addListener(() {
       setState(() {
-        _isEnabled = _controller.text.isNotEmpty;
+        _isEnabled1 = _controller.text.isNotEmpty;
       });
     });
     _newPasswordController.addListener(() {
       setState(() {
-        _isEnabled = _controller.text.isNotEmpty;
+        _isEnabled2 = _controller.text.isNotEmpty;
       });
     });
   }
@@ -168,7 +169,7 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                           }),
                       SizedBox(height: 5),
                       MaterialButton(
-                        onPressed: _isEnabled
+                        onPressed: _isEnabled2
                             ? () {
                                 _resetPassword(
                                     context, newemail, code, newpass);
@@ -190,7 +191,7 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                       ),
                       SizedBox(height: 5),
                       MaterialButton(
-                        onPressed: _isEnabled
+                        onPressed: _isEnabled1
                             ? () {
                                 Amplify.Auth.resetPassword(username: newemail);
                               }

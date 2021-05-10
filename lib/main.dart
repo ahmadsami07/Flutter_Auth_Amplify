@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:loginapp2/Services/providers.dart';
-import 'login2.dart';
+import './login2.dart';
 import './helper/configureAmplify.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureAmplify();
-  runApp(ProviderScope(child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
