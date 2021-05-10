@@ -1,8 +1,11 @@
+import 'package:SalonEverywhere/screens/ConfirmResetPasswordScreen.dart';
+import 'package:SalonEverywhere/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import '../landing_page.dart';
-import '../login_confirm.dart';
+import '../helper/LandingPageNavigator.dart';
+import '../screens/LandingPageScreen.dart';
+import '../screens/VerificationConfirmScreen.dart';
 import '../models/User.dart';
 
 class auth {
@@ -31,11 +34,12 @@ class auth {
           .then((value) => {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => login_confirm(currentUser: myUser),
+                    builder: (context) => VerifConfirm(currentUser: myUser),
                   ),
                 ),
               });
     } on AuthException catch (e) {
+      _showError(context, e.recoverySuggestion);
       print(e);
     }
   }
@@ -46,13 +50,23 @@ class auth {
           username: currentUser.email, confirmationCode: confirmationcode);
       if (result.isSignUpComplete) {
         await Amplify.DataStore.save(currentUser);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            content: Text(
+              "Congratulations! You Have Signed in. Please Login With Your email and Password.",
+              style: TextStyle(fontSize: 15),
+            ),
+          ),
+        );
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => LandingPage(email: currentUser.email),
+            builder: (context) => LoginScreen(),
           ),
         );
       }
     } on AuthException catch (e) {
+      _showError(context, e.recoverySuggestion);
       print(e.message);
     }
   }
@@ -63,7 +77,7 @@ class auth {
           await Amplify.Auth.signIn(username: email, password: password);
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => LandingPage(email: email),
+          builder: (context) => LandingNav(email: email),
         ),
       );
     } on AuthException catch (e) {

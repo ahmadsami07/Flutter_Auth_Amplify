@@ -9,13 +9,12 @@ class SampleScreen extends StatefulWidget {
 class _SampleScreenState extends State<SampleScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Sample Profiles"),
-      ),
-      body: WebView(
-        initialUrl: "https://saloneverywhere.com/sample-profiles",
-        gestureNavigationEnabled: true,
+    return Center(
+      child: Container(
+        child: WebView(
+          initialUrl: "https://saloneverywhere.com/sample-profiles",
+          gestureNavigationEnabled: true,
+        ),
       ),
     );
   }

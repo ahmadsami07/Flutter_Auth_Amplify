@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import './loginscreen.dart';
+import 'screens/LoginScreen.dart';
 import 'Services/amplifyconfiguration.dart';
 
-class welcomeScreen extends StatefulWidget {
+class WelcomeScreen extends StatefulWidget {
   @override
-  _welcomeScreenState createState() => _welcomeScreenState();
+  _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _welcomeScreenState extends State<welcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen> {
   bool _amplifyconfig = false;
 
   @override

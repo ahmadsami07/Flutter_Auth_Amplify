@@ -1,18 +1,19 @@
+import 'package:SalonEverywhere/screens/ConfirmResetPasswordScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import './screens/ResetPassword.dart';
+import './ConfirmResetPasswordScreen.dart';
 
-class ConfirmResetScreen extends StatefulWidget {
+class ForgotPasswordScreen extends StatefulWidget {
   //final LoginData data;
 
-  // ConfirmResetScreen({@required this.data});
+  // ForgotPasswordScreen({@required this.data});
 
   @override
-  _ConfirmResetScreenState createState() => _ConfirmResetScreenState();
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   String newemail, newpass, code;
   final _emailController = TextEditingController();
   final _newPasswordController = TextEditingController();
@@ -104,9 +105,11 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
         child: SafeArea(
           minimum: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Card(
                 elevation: 12,
+                color: Colors.red,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
@@ -115,18 +118,22 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
+                      Text(
+                        "Looks like you forgot your password! Please Enter Your Email To Send A Verification Code.",
+                        textAlign: TextAlign.center,
+                      ),
                       SizedBox(height: 10),
                       TextField(
                           controller: _emailController,
                           decoration: InputDecoration(
                             filled: true,
+                            fillColor: Colors.white,
                             contentPadding:
-                                const EdgeInsets.symmetric(vertical: 4.0),
+                                const EdgeInsets.symmetric(vertical: 5.0),
                             prefixIcon: Icon(Icons.email),
-                            labelText: 'Enter Email',
                             border: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(40)),
+                                  BorderRadius.all(Radius.circular(50)),
                             ),
                           ),
                           onChanged: (val) {
@@ -137,20 +144,19 @@ class _ConfirmResetScreenState extends State<ConfirmResetScreen> {
                       MaterialButton(
                         onPressed: _isEnabled1
                             ? () {
-                                Amplify.Auth.resetPassword(username: newemail);
                                 _sendPasswordCode(newemail);
                               }
                             : null,
                         elevation: 4,
-                        color: Theme.of(context).primaryColor,
-                        disabledColor: Colors.deepPurple.shade200,
+                        color: Colors.white,
+                        disabledColor: Colors.grey,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Text(
                           'SEND VERIFICATION CODE',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.red,
                             fontSize: 14,
                           ),
                         ),

@@ -72,6 +72,7 @@ class _ConfirmResetState extends State<ConfirmReset> {
         child: SafeArea(
           minimum: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Card(
                 elevation: 12,
@@ -121,7 +122,7 @@ class _ConfirmResetState extends State<ConfirmReset> {
                           contentPadding:
                               const EdgeInsets.symmetric(vertical: 4.0),
                           prefixIcon: Icon(Icons.lock),
-                          labelText: 'Enter new password',
+                          labelText: 'Retype new password',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(40)),
                           ),
@@ -151,7 +152,9 @@ class _ConfirmResetState extends State<ConfirmReset> {
                           prefixIcon: Icon(Icons.lock),
                           labelText: 'Enter confirmation code',
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(40),
+                            ),
                           ),
                         ),
                       ),
@@ -162,7 +165,7 @@ class _ConfirmResetState extends State<ConfirmReset> {
                               _codeController.text, _passwordController.text);
                         },
                         elevation: 4,
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.white,
                         disabledColor: Colors.deepPurple.shade200,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
